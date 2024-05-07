@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:manju_restaurant/pages/login.dart';
 import 'package:manju_restaurant/widget/widget_support.dart';

@@ -1,6 +1,7 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,11 @@ registration() async {
     try{
       UserCredential userCredential = await FirebaseAuth.instance.
       createUserWithEmailAndPassword(
-          email: email,
-          password: password
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
       );
+
+      addDetails(nameController.text.trim(), emailController.text.trim());
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: Colors.green,
@@ -63,6 +66,25 @@ registration() async {
       print(e);
     }
   }
+}
+
+Future addDetails(String name, String email) async{
+    await FirebaseFirestore.instance.collection('users').add(
+      {
+        'name': name,
+        'email': email,
+        'isApproved':false,
+        'isSuspended':false,
+        'warning': 0,
+        'deposit': 50.0,
+        'totalOrders': 0,
+        'totalSpent': 0.0,
+        'isVip': false,
+
+
+      }
+    );
+    
 }
 
 

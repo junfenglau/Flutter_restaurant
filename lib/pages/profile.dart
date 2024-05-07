@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:manju_restaurant/widget/widget_support.dart';
 
@@ -11,6 +12,16 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+    User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    print(user?.email);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +49,9 @@ class _ProfileState extends State<Profile> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              Text("Name: John Doe", style: AppWidget.boldTextFieldStyle(),),
+              Text("Name: ${user?.email ?? 'John Doe'}", style: AppWidget.boldTextFieldStyle(),),
               SizedBox(height: 10,),
-              Text("Email: john@johm.com", style: AppWidget.semiBoldTextFieldStyle(),),
+              Text("Email: ${user?.email ?? 'john@johm.com'}", style: AppWidget.semiBoldTextFieldStyle(),),
             ],),
           )
       ],),),
