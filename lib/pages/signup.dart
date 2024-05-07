@@ -4,6 +4,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:manju_restaurant/pages/bottomnav.dart';
 
 import '../widget/widget_support.dart';
 import 'login.dart';
@@ -40,6 +42,9 @@ registration() async {
         content: Text("Registration Successful",
         style: TextStyle(fontSize: 20)),
       ));
+
+      //using pushReplacement to remove the back button, the user can't go back to the signup page
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNav()));
     } on FirebaseException catch (e){
       if (e.code == 'weak-password'){
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -127,112 +132,127 @@ registration() async {
           
                  */
                         SizedBox(height: 50,),
-                        Material(
-                          elevation: 10,
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(
-                            padding: EdgeInsets.only(left: 20, right: 20),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height/1.8,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)
-                            ),
-                            child:
-                            Form(
-                              key:_formKey,
-                              child: Column(
-                                children:
-                                [
-                                  SizedBox(height: 30,),
-                                  Text("Register",
-                                    style: AppWidget.headLineTextFieldStyle(),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: 30,),
-                                  TextFormField(
-                                    controller: nameController,
-                                    validator: (value){
-                                      if (value!.isEmpty){
-                                        return "Please enter your name";
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: "Name",
-                                      hintStyle: AppWidget.semiBoldTextFieldStyle(),
-                                      prefixIcon: Icon(Icons.person),
-
+                        SingleChildScrollView(
+                          child: Material(
+                            elevation: 10,
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height/1.8,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child:
+                              Form(
+                                key:_formKey,
+                                child: Column(
+                                  children:
+                                  [
+                                    SizedBox(height: 30,),
+                                    Text("Register",
+                                      style: AppWidget.headLineTextFieldStyle(),
+                                      textAlign: TextAlign.center,
                                     ),
-                                  ),
-                                  SizedBox(height: 30,),
-                                  TextFormField(
-                                    controller: emailController,
-                                    validator: (value){
-                                      if (value!.isEmpty){
-                                        return "Please enter your email";
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: "Email",
-                                      hintStyle: AppWidget.semiBoldTextFieldStyle(),
-                                      prefixIcon: Icon(Icons.email),
-
-                                    ),
-                                  ),
-
-                                  SizedBox(height: 30,),
-                                  TextFormField(
-                                    controller: passwordController,
-                                    validator: (value){
-                                      if (value!.isEmpty){
-                                        return "Please enter your password";
-                                      }
-                                      return null;
-                                    },
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      hintText: "Password",
-                                      hintStyle: AppWidget.semiBoldTextFieldStyle(),
-                                      prefixIcon: Icon(Icons.password),
-
-                                    ),
-                                  ),
-                                  SizedBox(height: 30,),
-
-
-                                  SizedBox(height: 50,),
-                                  Material(
-                                    elevation: 5,
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(vertical: 10),
-                                      width: 200,
-                                      decoration:  BoxDecoration(gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [Colors.blue, Colors.green],
-
+                                    SizedBox(height: 30,),
+                                    TextFormField(
+                                      controller: nameController,
+                                      validator: (value){
+                                        if (value!.isEmpty){
+                                          return "Please enter your name";
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "Name",
+                                        hintStyle: AppWidget.semiBoldTextFieldStyle(),
+                                        prefixIcon: Icon(Icons.person),
+                          
                                       ),
-                                          borderRadius: BorderRadius.circular(30)),
-                                      child: const Center(
-                                        child: Text("Register",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold
+                                    ),
+                                    SizedBox(height: 30,),
+                                    TextFormField(
+                                      controller: emailController,
+                                      validator: (value){
+                                        if (value!.isEmpty){
+                                          return "Please enter your email";
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "Email",
+                                        hintStyle: AppWidget.semiBoldTextFieldStyle(),
+                                        prefixIcon: Icon(Icons.email),
+                          
+                                      ),
+                                    ),
+                          
+                                    SizedBox(height: 30,),
+                                    TextFormField(
+                                      controller: passwordController,
+                                      validator: (value){
+                                        if (value!.isEmpty){
+                                          return "Please enter your password";
+                                        }
+                                        return null;
+                                      },
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                        hintText: "Password",
+                                        hintStyle: AppWidget.semiBoldTextFieldStyle(),
+                                        prefixIcon: Icon(Icons.password),
+                          
+                                      ),
+                                    ),
+                                    SizedBox(height: 30,),
+                          
+                          
+                                    SizedBox(height: 50,),
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (_formKey.currentState!.validate()){
+                                          setState(() {
+                                            name = nameController.text;
+                                            email = emailController.text;
+                                            password = passwordController.text;
+                                          });
+                                          
+                                        }
+                                        registration();
+                                      },
+                                      child: Material(
+                                        elevation: 5,
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(vertical: 10),
+                                          width: 200,
+                                          decoration:  BoxDecoration(gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [Colors.blue, Colors.green],
+                                      
+                                          ),
+                                              borderRadius: BorderRadius.circular(30)),
+                                          child: const Center(
+                                            child: Text("Next",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  )
-
-
-                                ],
+                                    )
+                          
+                          
+                                  ],
+                                ),
                               ),
+                                    
                             ),
-          
                           ),
                         ),
                         SizedBox(height: 50,),

@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart%20';
 import 'package:flutter/widgets.dart';
 
 import '../widget/widget_support.dart';
@@ -91,6 +92,18 @@ class _FoodDetailsState extends State<FoodDetails> {
 
 
             ],),
+            SizedBox(height: 20,),
+            Row(
+              children: [
+
+                  
+                    
+                    Row(children: [Icon(Icons.star, color: Colors.yellow[900],),
+                    SizedBox(width: 5,),
+                    Text("4.5", style: AppWidget.semiBoldTextFieldStyle()),],),
+                  
+
+              ],),
             SizedBox(height: 20,),
             Text("lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
                 style: AppWidget.lightTextFieldStyle(),
