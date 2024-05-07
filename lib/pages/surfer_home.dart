@@ -1,18 +1,20 @@
 
 import "package:flutter/material.dart";
+import "package:flutter/widgets.dart";
+import "package:manju_restaurant/pages/login.dart";
 
 
 import "../widget/widget_support.dart";
 import "food_details.dart";
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class SurferHome extends StatefulWidget {
+  const SurferHome({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<SurferHome> createState() => _SurferHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _SurferHomeState extends State<SurferHome> {
 
   bool appetizer = false, main = false, dessert = false, soda = false;
   @override
@@ -26,18 +28,21 @@ class _HomeState extends State<Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Hello Fardeen!",
+              Text("Hello Stranger!",
                 style: AppWidget.boldTextFieldStyle(),
               ),
 
               ///Here is the Shopping Cart Icon
-              Container(
-                margin: const EdgeInsets.only(right: 20.0),
-                padding: const EdgeInsets.all(3.0),
-                decoration: BoxDecoration(
-                    color: Colors.black, borderRadius: BorderRadius.circular(10.0)
+              GestureDetector(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn())),
+                child: Container(
+                  margin: const EdgeInsets.only(right: 20.0),
+                  padding: const EdgeInsets.all(3.0),
+                  decoration: BoxDecoration(
+                      color: Colors.black, borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  child:const Icon(Icons.login_outlined, size: 30.0, color: Colors.white),
                 ),
-                child:const Icon(Icons.shopping_cart_checkout, size: 30.0, color: Colors.white),
               )
             ],
           ),

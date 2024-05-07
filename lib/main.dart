@@ -1,7 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:manju_restaurant/chef/chef_bottomnav.dart';
+import 'package:manju_restaurant/pages/bottomnav.dart';
+import 'package:manju_restaurant/pages/home.dart';
 import 'package:manju_restaurant/pages/login.dart';
+import 'package:manju_restaurant/pages/signup.dart';
+import 'package:manju_restaurant/pages/surfer_home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -32,7 +40,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LogIn(),
+      debugShowCheckedModeBanner: false,
+      home: BottomNav(),
     );
   }
 }
