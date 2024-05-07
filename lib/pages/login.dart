@@ -1,9 +1,12 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart%20';
 import 'package:flutter/widgets.dart';
+import 'package:manju_restaurant/pages/bottomnav.dart';
 import 'package:manju_restaurant/pages/signup.dart';
 
 
@@ -18,7 +21,32 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  
+  String email = "";
+  String password = "";
+  
+  final _formkey = GlobalKey<FormState>();
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  userLogin() async{
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNav()));
+    } on FirebaseAuthException catch(e){
+      if(e.code == 'user-not-found'){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
+         Text('No user found for that email', style: AppWidget.boldTextFieldStyle(),)));
+      }else if(e.code == 'wrong-password'){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
+        Text('Wrong password!', style: AppWidget.boldTextFieldStyle(),)));
+      }
+    }
+  }
+  
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       body:SingleChildScrollView(
@@ -94,71 +122,98 @@ class _LogInState extends State<LogIn> {
                           borderRadius: BorderRadius.circular(10)
                         ),
                         child:
-                          Column(
-                            children:
-                            [
-                              SizedBox(height: 30,),
-                              Text("Login",
-                            style: AppWidget.headLineTextFieldStyle(),
-                              textAlign: TextAlign.center,
-                            ),
-                          SizedBox(height: 30,),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Email",
-                                  hintStyle: AppWidget.semiBoldTextFieldStyle(),
-                                  prefixIcon: Icon(Icons.email),
-        
-                                ),
+                          Form(
+                            key: _formkey,
+                            child: Column(
+                              children:
+                              [
+                                SizedBox(height: 30,),
+                                Text("Login",
+                              style: AppWidget.headLineTextFieldStyle(),
+                                textAlign: TextAlign.center,
                               ),
-        
-                              SizedBox(height: 30,),
-                              TextField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  hintText: "Password",
-                                  hintStyle: AppWidget.semiBoldTextFieldStyle(),
-                                  prefixIcon: Icon(Icons.password),
-        
-                                ),
-                              ),
-                              SizedBox(height: 30,),
-        
-                              Container(
-                                alignment: Alignment.topRight,
-                                child: Text("Forgot Password?",
-                                  style: AppWidget.semiBoldTextFieldStyle(),
-                                ),
-        
-                                ),
-                              SizedBox(height: 50,),
-                              Material(
-                                elevation: 5,
-                                borderRadius: BorderRadius.circular(30),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
-                                  width: 200,
-                                  decoration:  BoxDecoration(gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [Colors.blue, Colors.green],
-        
+                            SizedBox(height: 30,),
+                                TextFormField(
+                                  controller: emailController,
+                                  validator: (value){
+                                    if(value!.isEmpty || value == null){
+                                      return "Please enter your email";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: "Email",
+                                    hintStyle: AppWidget.semiBoldTextFieldStyle(),
+                                    prefixIcon: Icon(Icons.email),
+                                    
                                   ),
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: const Center(
-                                    child: Text("LOGIN",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold
+                                ),
+                                    
+                                SizedBox(height: 30,),
+                                TextFormField(
+                                  controller: passwordController,
+                                  validator: (value){
+                                    if(value!.isEmpty || value == null){
+                                      return "Please enter your password";
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    hintText: "Password",
+                                    hintStyle: AppWidget.semiBoldTextFieldStyle(),
+                                    prefixIcon: Icon(Icons.password),
+                                    
+                                  ),
+                                ),
+                                SizedBox(height: 30,),
+                                    
+                                Container(
+                                  alignment: Alignment.topRight,
+                                  child: Text("Forgot Password?",
+                                    style: AppWidget.semiBoldTextFieldStyle(),
+                                  ),
+                                    
+                                  ),
+                                SizedBox(height: 50,),
+                                GestureDetector(
+                                  onTap: () {
+                                    if(_formkey.currentState!.validate()){
+                                      email = emailController.text;
+                                      password = passwordController.text;
+                                      
+                                    }
+                                    userLogin();
+                                  },
+                                  child: Material(
+                                    elevation: 5,
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: 10),
+                                      width: 200,
+                                      decoration:  BoxDecoration(gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [Colors.blue, Colors.green],
+                                      
+                                      ),
+                                          borderRadius: BorderRadius.circular(30)),
+                                      child: const Center(
+                                        child: Text("LOGIN",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-        
-        
-                          ],
+                                )
+                                    
+                                    
+                            ],
+                            ),
                           ),
         
                         ),

@@ -32,7 +32,7 @@ class _SurferHomeState extends State<SurferHome> {
                 style: AppWidget.boldTextFieldStyle(),
               ),
 
-              ///Here is the Shopping Cart Icon
+              ///Here is the Login Icon
               GestureDetector(
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn())),
                 child: Container(
