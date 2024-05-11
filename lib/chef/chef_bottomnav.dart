@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:manju_restaurant/chef/chef_home.dart';
 import 'package:manju_restaurant/chef/chef_profile.dart';
 import 'package:manju_restaurant/chef/edit_menu.dart';
+import 'package:manju_restaurant/chef/chef_orders.dart';
+import 'package:manju_restaurant/chef/chef_ingredients.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
 
 class ChefNav extends StatefulWidget {
@@ -20,6 +22,8 @@ class _ChefNavState extends State<ChefNav> {
   late Widget currentPage;
   late ChefHome chefHome;
   late EditMenu editMenu;
+  late OrdersPage ordersPage;
+  late ChefIngredientsPage chefIngredients;
   late ChefProfile chefProfile;
 
   @override
@@ -27,9 +31,11 @@ class _ChefNavState extends State<ChefNav> {
     // TODO: implement initState
     chefHome =  ChefHome();
     editMenu =  EditMenu();
+    ordersPage = OrdersPage();
+    chefIngredients = ChefIngredientsPage();
     chefProfile =  ChefProfile();
 
-    pages = [chefHome, editMenu, chefProfile];
+    pages = [chefHome, editMenu, ordersPage, chefIngredients, chefProfile];
     super.initState();
   }
   @override
